@@ -1,0 +1,1 @@
+require 'bushido_stub'
