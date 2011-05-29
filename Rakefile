@@ -1,12 +1,13 @@
 require 'rubygems'
 require 'rake'
-require 'rake/rdoctask'
-require 'rspec'
-require 'rspec/core/rake_task'
+require 'rake/gempackagetask'
 
-desc 'Run specs'
-Rspec::Core::RakeTask.new('spec') do |spec|
-  spec.pattern = 'spec/**/*_spec.rb'
+gemspec = eval(File.read('bushido_stub.gemspec'))
+Rake::GemPackageTask.new(gemspec) do |pkg|
+  pkg.gem_spec = gemspec
 end
 
-task :default => :spec
+desc 'build the gem and release it to rubygems.org'
+task :release => :gem do
+  sh 'gem push pkg/bushido_stub-#{gemspec.version}.gem'
+end
