@@ -10,8 +10,10 @@ Gem::Specification.new do |s|
   s.authors = ["Didier Lafforgue"]
   s.email = "didier@nocoffee.fr"
 
+  s.add_dependency "activesupport", ">= 3.0.7"
+
   s.require_paths = ["lib"]
-  s.files = Dir["lib/**/*"] + Dir["spec/**/*"] + ["README.rdoc", "Rakefile"]
+  s.files = Dir["lib/**/*"] + ["README.rdoc", "Rakefile"]
   s.extra_rdoc_files = ["README.rdoc"]
 
   s.has_rdoc = false

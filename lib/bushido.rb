@@ -11,7 +11,6 @@ module Bushido
       :domains                  => [],
       :subdomain                => 'san_francisco',
       :claimed                  => false,
-      # :claim_url                => 'http://bushi.do/app/foo/claim',
       :last_event               => {
         :category   => 'user',
         :name       => 'create',
@@ -64,10 +63,6 @@ module Bushido
     def self.claimed?
       ::Bushido.claimed
     end
-
-    # def self.claim_url
-    #   @@claim_url
-    # end
 
     def self.last_event
       ::Bushido.last_event
