@@ -1,6 +1,10 @@
 require 'rubygems'
+
 require 'rake'
 require 'rake/gempackagetask'
+
+require 'bundler'
+Bundler.setup
 
 gemspec = eval(File.read('bushido_stub.gemspec'))
 Rake::GemPackageTask.new(gemspec) do |pkg|
