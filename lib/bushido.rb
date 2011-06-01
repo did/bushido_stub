@@ -3,6 +3,8 @@ require 'ostruct'
 
 module Bushido
 
+  VERSION = 'bushidostub'
+
   mattr_accessor :domains, :subdomain, :last_command_successful, :claimed, :last_event
 
   def self.set_env(options = {})
