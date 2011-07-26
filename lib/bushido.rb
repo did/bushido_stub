@@ -3,7 +3,7 @@ require 'ostruct'
 
 module Bushido
 
-  mattr_accessor :domains, :subdomain, :last_command_successful, :claimed, :last_event
+  mattr_accessor :domains, :subdomain, :last_command_successful, :claimed, :last_event, :events
 
   def self.set_env(options = {})
     options = {
@@ -15,6 +15,13 @@ module Bushido
         :category   => 'user',
         :name       => 'create',
         :data       => { 'email' => 'san_francisco@bushi.do', 'id' => 4242 }
+      },
+      :events                   => {
+        'app.claimed' => {
+          'data' => {
+            'email' => 'san_francisco@bushi.do'
+          }
+        }
       }
     }.merge(options)
 
@@ -26,6 +33,8 @@ module Bushido
     ENV['BUSHIDO_CLAIMED'] = @@claimed.to_s
 
     @@last_event = OpenStruct.new(options.delete(:last_event))
+
+    @@events = options.delete(:events)
 
     options.each { |k, v| ENV[k] = v }
   end
@@ -66,6 +75,25 @@ module Bushido
 
     def self.last_event
       ::Bushido.last_event
+    end
+
+  end
+
+  module Data
+
+    attr_accessor :registered_events
+
+    def self.listen(name, &block)
+      @@registered_events ||= {}
+      @@registered_events[name] = block
+    end
+
+    def self.call(name)
+      event = @@registered_events[name]
+
+      raise "Unregistered event: #{name}" if event.nil?
+
+      event.call(::Bushido.events[name])
     end
 
   end

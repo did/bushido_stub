@@ -13,5 +13,5 @@ end
 
 desc 'build the gem and release it to rubygems.org'
 task :release => :gem do
-  sh 'gem push pkg/bushido_stub-#{gemspec.version}.gem'
+  sh "gem push pkg/bushido_stub-#{gemspec.version}.gem"
 end
